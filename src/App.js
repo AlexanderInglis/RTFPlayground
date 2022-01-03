@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.scss";
-import { Loader, PerspectiveCamera } from "@react-three/drei";
-import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib";
+import { Loader } from "@react-three/drei";
 import { Physics, useBox, usePlane, useSphere } from "@react-three/cannon";
-import { Canvas, useFrame, extend, useThree } from "react-three-fiber";
+import { Canvas, useFrame, useThree } from "react-three-fiber";
 import {
   EffectComposer,
   Noise,
@@ -11,17 +10,8 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import * as THREE from "three";
-import { useControls } from "leva";
-import {
-  softShadows,
-  MeshWobbleMaterial,
-  OrbitControls,
-  MeshReflectorMaterial,
-  Reflector,
-  RoundedBox,
-} from "@react-three/drei";
 
-RectAreaLightUniformsLib.init();
+import { OrbitControls, Reflector } from "@react-three/drei";
 
 function Light() {
   const ref = useRef();
