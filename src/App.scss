@@ -42,8 +42,8 @@ body {
 #cursor-dot {
   width: var(--cursor-size);
   height: var(--cursor-size);
-  background-color: rgba(255, 255, 255);
-  mix-blend-mode: exclusion;
+  background-color: rgb(255, 0, 0);
+  // mix-blend-mode: exclusion;
 }
 
 #cursor-dot-outline {
