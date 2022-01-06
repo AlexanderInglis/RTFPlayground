@@ -1,7 +1,7 @@
-import React, { useRef, Suspense, useLayoutEffect } from "react";
-import { Loader, useGLTF, useTexture } from "@react-three/drei";
+import React, { Suspense } from "react";
+import { Loader } from "@react-three/drei";
 import { Physics, useBox, usePlane, useSphere } from "@react-three/cannon";
-import { Canvas, useFrame, useThree, useLoader } from "react-three-fiber";
+import { Canvas, useFrame, useThree } from "react-three-fiber";
 import {
   EffectComposer,
   Noise,
@@ -10,27 +10,27 @@ import {
 import { BlendFunction } from "postprocessing";
 import * as THREE from "three";
 import { OrbitControls, Reflector } from "@react-three/drei";
-import TvModel from "./Tv";
-import Model from "./Model";
+// import TvModel from "./Tv";
+// import Model from "./Model";
 
-const CustomModel = ({ position, color, args, mass }) => {
-  const [ref] = useBox(() => ({
-    mass,
-    position,
-    args,
-  }));
-  return (
-    <mesh
-      material={material}
-      castShadow
-      receiveShadow
-      position={position}
-      ref={ref}
-    >
-      <Model />
-    </mesh>
-  );
-};
+// const CustomModel = ({ position, color, args, mass }) => {
+//   const [ref] = useBox(() => ({
+//     mass,
+//     position,
+//     args,
+//   }));
+//   return (
+//     <mesh
+//       material={material}
+//       castShadow
+//       receiveShadow
+//       position={position}
+//       ref={ref}
+//     >
+//       <Model />
+//     </mesh>
+//   );
+// };
 
 //CUSTOM MATERIALS
 
@@ -67,7 +67,7 @@ const CustomSphere = ({ position, color, args }) => {
     mass: 50,
     position,
   }));
-  const { scene, gl, size, camera } = useThree();
+  const { camera } = useThree();
   camera.rotation.order = "YXZ";
   return (
     <Reflector
