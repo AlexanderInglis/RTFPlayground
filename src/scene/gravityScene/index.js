@@ -66,6 +66,7 @@ const CustomSphere = ({ position, color, args }) => {
   const [ref] = useSphere(() => ({
     mass: 50,
     position,
+    color,
   }));
   const { camera } = useThree();
   camera.rotation.order = "YXZ";
@@ -83,7 +84,13 @@ const CustomSphere = ({ position, color, args }) => {
       scale={[1, 1, 1]}
     >
       {(Material, props) => (
-        <mesh material={material} castShadow receiveShadow ref={ref}>
+        <mesh
+          material={material}
+          color={color}
+          castShadow
+          receiveShadow
+          ref={ref}
+        >
           <sphereBufferGeometry attach="geometry" args={args} />
         </mesh>
       )}
@@ -184,7 +191,7 @@ export default function GravityScene() {
               />
               <CustomSphere
                 position={[1, 1, 3]}
-                color="white"
+                color="red"
                 args={[1, 100, 100]}
               />
             </Physics>
