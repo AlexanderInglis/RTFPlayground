@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./App.scss";
 import GravityScene from "./scene/gravityScene";
-import Cursor from "./Cursor";
+import Cursor from "./assets/Cursor";
 
 function App() {
   return (

@@ -25,25 +25,34 @@ body {
   --cursor-outline-size: 22px;
 }
 
-#cursor-dot,
-#cursor-dot-outline {
-  // filter: invert(100%);
-  z-index: 999;
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 100%;
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+@media (min-width: 1000px) {
+  #cursor-dot,
+  #cursor-dot-outline {
+    // filter: invert(100%);
+    z-index: 999;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 100%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+  }
+}
+
+@media (max-width: 1000px) {
+  #cursor-dot,
+  #cursor-dot-outline {
+    display: none;
+  }
 }
 
 #cursor-dot {
   width: var(--cursor-size);
   height: var(--cursor-size);
-  background-color: rgb(255, 0, 0);
-  // mix-blend-mode: exclusion;
+  background-color: rgb(255, 255, 255);
+  mix-blend-mode: exclusion;
 }
 
 #cursor-dot-outline {
