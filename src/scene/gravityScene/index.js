@@ -86,7 +86,7 @@ const CustomSphere = ({ position, color, args }) => {
       {(Material, props) => (
         <mesh
           material={material}
-          color={color}
+          color={"red"}
           castShadow
           receiveShadow
           ref={ref}
@@ -143,7 +143,7 @@ export default function GravityScene() {
           <color attach="background" args={["#96c0ff"]} />
           <fog attach="fog" args={["#96c0ff", 0, 40]} />
           <EffectComposer>
-            <ChromaticAberration offset={[0.0001, 0.0001]} />
+            <ChromaticAberration offset={[0.001, 0.001]} />
             <Noise
               opacity={0.7}
               premultiply
