@@ -12,8 +12,7 @@ import * as THREE from "three";
 
 export default function Model({ ...props }) {
   const group = useRef();
-  const { nodes, materials } = useGLTF("/buddha_four_faces/scene.gltf");
-  const args = nodes.Object_2.geometry;
+  const { nodes } = useGLTF("/buddha_four_faces/scene.gltf");
 
   const material = new THREE.MeshPhysicalMaterial({
     color: new THREE.Color("#d9e8ff").convertSRGBToLinear(),
