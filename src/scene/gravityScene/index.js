@@ -1,12 +1,13 @@
 import React, { Suspense } from "react";
 import * as THREE from "three";
-import { Loader, useGLTF } from "@react-three/drei";
+import { Loader, Stats } from "@react-three/drei";
 import {
   Physics,
   useBox,
   usePlane,
   useSphere,
   useCompoundBody,
+  Debug,
 } from "@react-three/cannon";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import {
@@ -15,7 +16,6 @@ import {
   ChromaticAberration,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-
 import { OrbitControls, Reflector } from "@react-three/drei";
 import Buddha from "./Scene";
 
@@ -123,7 +123,6 @@ const CustomPlane = () => {
 //CUSTOM MODEL
 
 const CustomBuddha = ({ position, color, mass }) => {
-  const { args } = useGLTF("/buddha_four_faces/scene.gltf");
   const [ref] = useCompoundBody(() => ({
     mass: 500,
     position,
@@ -132,7 +131,7 @@ const CustomBuddha = ({ position, color, mass }) => {
         type: "Cylinder",
         position: [-0.05, -1.35, -0.3],
         rotation: [110, 0, 0],
-        args: [1.2, 1.9, 1.5, 20],
+        args: [1.2, 1.9, 1.5, 10],
       },
       {
         type: "Cylinder",
@@ -144,14 +143,8 @@ const CustomBuddha = ({ position, color, mass }) => {
   }));
 
   return (
-    <mesh
-      castShadow
-      receiveShadow
-      position={position}
-      ref={ref}
-      scale={[0.2, 0.2, 0.2]}
-    >
-      <Buddha args={args} />
+    <mesh position={position} ref={ref} scale={[0.2, 0.2, 0.2]}>
+      <Buddha />
     </mesh>
   );
 };
@@ -188,9 +181,9 @@ export default function GravityScene() {
           />
           <group>
             <Physics gravity={[0, -9.81, 0]}>
+              {/* <Debug scale={1.1} color="black"> */}
               <CustomPlane color="white" />
               <CustomBuddha position={[0, 2.1, 0]} mass={200} />
-
               <CustomBox
                 color="white"
                 args={[1, 1, 1]}
@@ -214,6 +207,7 @@ export default function GravityScene() {
                 color="red"
                 args={[1, 100, 100]}
               />
+              {/* </Debug> */}
             </Physics>
           </group>
           <OrbitControls
@@ -223,6 +217,7 @@ export default function GravityScene() {
             maxPolarAngle={1.1}
           />
         </Suspense>
+        <Stats />
       </Canvas>
       <Loader />
     </>
