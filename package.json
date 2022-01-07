@@ -18,6 +18,7 @@
     "react-three-fiber": "^6.0.13",
     "sass": "^1.45.1",
     "three": "^0.135.0",
+    "three-stdlib": "^2.6.4",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

@@ -1,6 +1,13 @@
 import React, { Suspense } from "react";
-import { Loader } from "@react-three/drei";
-import { Physics, useBox, usePlane, useSphere } from "@react-three/cannon";
+import * as THREE from "three";
+import { Loader, useGLTF } from "@react-three/drei";
+import {
+  Physics,
+  useBox,
+  usePlane,
+  useSphere,
+  useCompoundBody,
+} from "@react-three/cannon";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import {
   EffectComposer,
@@ -8,29 +15,9 @@ import {
   ChromaticAberration,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
-import * as THREE from "three";
-import { OrbitControls, Reflector } from "@react-three/drei";
-// import TvModel from "./Tv";
-// import Model from "./Model";
 
-// const CustomModel = ({ position, color, args, mass }) => {
-//   const [ref] = useBox(() => ({
-//     mass,
-//     position,
-//     args,
-//   }));
-//   return (
-//     <mesh
-//       material={material}
-//       castShadow
-//       receiveShadow
-//       position={position}
-//       ref={ref}
-//     >
-//       <Model />
-//     </mesh>
-//   );
-// };
+import { OrbitControls, Reflector } from "@react-three/drei";
+import Buddha from "./Scene";
 
 //CUSTOM MATERIALS
 
@@ -133,12 +120,52 @@ const CustomPlane = () => {
   );
 };
 
+//CUSTOM MODEL
+
+const CustomBuddha = ({ position, color, mass }) => {
+  const { args } = useGLTF("/buddha_four_faces/scene.gltf");
+  const [ref] = useCompoundBody(() => ({
+    mass: 500,
+    position,
+    shapes: [
+      {
+        type: "Cylinder",
+        position: [-0.05, -1.35, -0.3],
+        rotation: [110, 0, 0],
+        args: [1.2, 1.9, 1.5, 20],
+      },
+      {
+        type: "Cylinder",
+        position: [-0.05, 0.9, -0.3],
+        rotation: [110, 0, 0],
+        args: [1.9, 1.1, 2, 9],
+      },
+    ],
+  }));
+
+  return (
+    <mesh
+      castShadow
+      receiveShadow
+      position={position}
+      ref={ref}
+      scale={[0.2, 0.2, 0.2]}
+    >
+      <Buddha args={args} />
+    </mesh>
+  );
+};
+
 //SCENE
 
 export default function GravityScene() {
   return (
     <>
-      <Canvas camera={{ position: [0, 200, 340], fov: 90 }} shadows>
+      <Canvas
+        camera={{ position: [0, 200, 340], fov: 90 }}
+        shadows
+        dpr={window.devicePixelRatio}
+      >
         <Suspense fallback={null}>
           <color attach="background" args={["#96c0ff"]} />
           <fog attach="fog" args={["#96c0ff", 0, 40]} />
@@ -162,15 +189,8 @@ export default function GravityScene() {
           <group>
             <Physics gravity={[0, -9.81, 0]}>
               <CustomPlane color="white" />
-              {/* <TvModel args={[25, 25, 25]} mass={200} position={[0, 10, 0]} /> */}
-              {/* <CustomModel position={[0, 4, 0]} mass={10} /> */}
-              {/* <Model /> */}
-              <CustomBox
-                color="white"
-                args={[2, 2, 2]}
-                position={[0, 1, 0]}
-                mass={100}
-              />
+              <CustomBuddha position={[0, 2.1, 0]} mass={200} />
+
               <CustomBox
                 color="white"
                 args={[1, 1, 1]}
