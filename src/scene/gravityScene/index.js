@@ -143,7 +143,14 @@ const CustomBuddha = ({ position, color, mass }) => {
   }));
 
   return (
-    <mesh position={position} ref={ref} scale={[0.2, 0.2, 0.2]}>
+    <mesh
+      castShadow
+      receiveShadow
+      material={material}
+      position={position}
+      ref={ref}
+      scale={[0.2, 0.2, 0.2]}
+    >
       <Buddha />
     </mesh>
   );

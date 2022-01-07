@@ -8,39 +8,51 @@ title: Buddha - Four Faces
 
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 export default function Model({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/buddha_four_faces/scene.gltf");
   const args = nodes.Object_2.geometry;
 
+  const material = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color("#d9e8ff").convertSRGBToLinear(),
+    roughness: 0,
+    clearcoat: 5,
+    clearcoatRoughness: 1,
+  });
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group position={[0, -1.9, -1.28]}>
         <mesh
           geometry={nodes.Object_2.geometry}
-          material={nodes.Object_2.material}
+          // material={nodes.Object_2.material}
           castShadow
           receiveShadow
+          material={material}
         />
         <mesh
           geometry={nodes.Object_3.geometry}
-          material={nodes.Object_3.material}
+          // material={nodes.Object_3.material}
           castShadow
           receiveShadow
+          material={material}
         />
 
         <mesh
           geometry={nodes.Object_4.geometry}
-          material={nodes.Object_4.material}
+          // material={nodes.Object_4.material}
           castShadow
           receiveShadow
+          material={material}
         />
         <mesh
           geometry={nodes.Object_5.geometry}
-          material={nodes.Object_5.material}
+          // material={nodes.Object_5.material}
           castShadow
           receiveShadow
+          material={material}
         />
       </group>
     </group>
