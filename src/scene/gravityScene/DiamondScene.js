@@ -30,7 +30,7 @@ export default function Model({ ...props }) {
     emissive: "#000000",
     emissiveIntensity: 1,
     sheen: 1,
-    sheenColor: "red",
+    sheenColor: "#ff0073",
   });
   return (
     <group ref={group} {...props} dispose={null}>
