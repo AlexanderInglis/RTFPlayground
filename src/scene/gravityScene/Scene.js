@@ -9,16 +9,30 @@ title: Buddha - Four Faces
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import { useControls } from "leva";
 
 export default function Model({ ...props }) {
   const group = useRef();
   const { nodes } = useGLTF("/buddha_four_faces/scene.gltf");
 
   const material = new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color("#d9e8ff").convertSRGBToLinear(),
-    roughness: 0,
-    clearcoat: 5,
-    clearcoatRoughness: 1,
+    color: new THREE.Color("#ccddf0").convertSRGBToLinear(),
+    roughness: 0.2,
+    clearcoat: 1,
+    clearcoatRoughness: 0,
+    transmission: 0.7,
+    metalness: 0.6,
+    ior: 0.1,
+    envMapIntensity: 25,
+    attenuationTint: "red",
+    attenuationDistance: 1,
+    thickness: 2,
+    reflectivity: 2,
+    envMaps: "reflect",
+    emissive: "#000000",
+    emissiveIntensity: 1,
+    sheen: 1,
+    sheenColor: "#FFFFFF",
   });
 
   return (

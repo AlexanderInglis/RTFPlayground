@@ -18,6 +18,8 @@ import {
 import { BlendFunction } from "postprocessing";
 import { OrbitControls, Reflector } from "@react-three/drei";
 import Buddha from "./Scene";
+import Diamond from "./DiamondScene";
+import { useControls } from "leva";
 
 //CUSTOM MATERIALS
 
@@ -156,6 +158,40 @@ const CustomBuddha = ({ position, color, mass }) => {
   );
 };
 
+const CustomDiamond = ({ position, color, mass }) => {
+  const [ref] = useCompoundBody(() => ({
+    mass: 20,
+    position,
+    shapes: [
+      {
+        type: "Cylinder",
+        position: [0, 0.8, 0],
+        rotation: [110, 0, 0],
+        args: [0.03, 1.5, 2, 10],
+      },
+      {
+        type: "Cylinder",
+        position: [-0, 2.2, 0],
+        rotation: [110, 0, 0],
+        args: [1.6, 1, 0.5, 10],
+      },
+    ],
+  }));
+
+  return (
+    <mesh
+      castShadow
+      receiveShadow
+      material={material}
+      position={position}
+      ref={ref}
+      scale={[0.05, 0.05, 0.05]}
+    >
+      {/* <Diamond /> */}
+    </mesh>
+  );
+};
+
 //SCENE
 
 export default function GravityScene() {
@@ -191,16 +227,17 @@ export default function GravityScene() {
               {/* <Debug scale={1.1} color="black"> */}
               <CustomPlane color="white" />
               <CustomBuddha position={[0, 2.1, 0]} mass={200} />
+              {/* <CustomDiamond position={[0, 5.1, 0]} mass={20} /> */}
               <CustomBox
                 color="white"
                 args={[1, 1, 1]}
-                position={[-3, 0.5, 0]}
+                position={[0, 0.5, -3]}
                 mass={200}
               />
               <CustomBox
                 color="white"
                 args={[0.2, 0.2, 0.2]}
-                position={[5, 0.1, 3.5]}
+                position={[20, 0.1, 3.5]}
                 mass={80}
               />
               <CustomBox
