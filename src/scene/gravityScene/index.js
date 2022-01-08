@@ -122,7 +122,7 @@ const CustomPlane = () => {
   );
 };
 
-//CUSTOM MODEL
+// CUSTOM MODEL
 
 const CustomBuddha = ({ position, color, mass }) => {
   const [ref] = useCompoundBody(() => ({
@@ -158,6 +158,7 @@ const CustomBuddha = ({ position, color, mass }) => {
   );
 };
 
+// CUSTOM DIAMOND
 const CustomDiamond = ({ position, color, mass }) => {
   const [ref] = useCompoundBody(() => ({
     mass: 20,
@@ -167,13 +168,13 @@ const CustomDiamond = ({ position, color, mass }) => {
         type: "Cylinder",
         position: [0, 0.8, 0],
         rotation: [110, 0, 0],
-        args: [0.03, 1.5, 2, 10],
+        args: [0.1, 1.5, 2, 6],
       },
       {
         type: "Cylinder",
         position: [-0, 2.2, 0],
         rotation: [110, 0, 0],
-        args: [1.6, 1, 0.5, 10],
+        args: [1, 1, 0.5, 6],
       },
     ],
   }));
@@ -182,12 +183,13 @@ const CustomDiamond = ({ position, color, mass }) => {
     <mesh
       castShadow
       receiveShadow
-      material={material}
+      // material={glassMaterial}
       position={position}
       ref={ref}
       scale={[0.05, 0.05, 0.05]}
     >
-      {/* <Diamond /> */}
+      {/* <MeshPhysicalMaterial /> */}
+      <Diamond />
     </mesh>
   );
 };
@@ -226,8 +228,8 @@ export default function GravityScene() {
             <Physics gravity={[0, -9.81, 0]}>
               {/* <Debug scale={1.1} color="black"> */}
               <CustomPlane color="white" />
-              <CustomBuddha position={[0, 2.1, 0]} mass={200} />
-              {/* <CustomDiamond position={[0, 5.1, 0]} mass={20} /> */}
+              {/* <CustomBuddha position={[0, 2.1, 0]} mass={200} /> */}
+              <CustomDiamond position={[0, 1.5, 2]} mass={20} />
               <CustomBox
                 color="white"
                 args={[1, 1, 1]}
@@ -247,7 +249,7 @@ export default function GravityScene() {
                 mass={80}
               />
               <CustomSphere
-                position={[1, 1, 3]}
+                position={[1, 1, 0]}
                 color="red"
                 args={[1, 100, 100]}
               />

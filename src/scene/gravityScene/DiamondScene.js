@@ -8,10 +8,30 @@ title: Diamond
 
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 export default function Model({ ...props }) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/diamond/scene.gltf");
+  const glassMaterial = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color("#4d0000").convertSRGBToLinear(),
+    roughness: 0,
+    clearcoat: 1,
+    clearcoatRoughness: 0,
+    transmission: 0.9,
+    metalness: 4,
+    ior: 0.1,
+    envMapIntensity: 25,
+    attenuationTint: "red",
+    attenuationDistance: 1,
+    thickness: 50,
+    reflectivity: 2,
+    envMaps: "reflect",
+    emissive: "#000000",
+    emissiveIntensity: 1,
+    sheen: 1,
+    sheenColor: "red",
+  });
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -20,7 +40,7 @@ export default function Model({ ...props }) {
             <group position={[0, 0, 98.59]}>
               <mesh
                 geometry={nodes["Cylinder001_Material_#27_0"].geometry}
-                material={materials.Material_27}
+                material={glassMaterial}
               />
             </group>
           </group>
