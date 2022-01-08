@@ -229,7 +229,7 @@ export default function GravityScene() {
               {/* <Debug scale={1.1} color="black"> */}
               <CustomPlane color="white" />
               {/* <CustomBuddha position={[0, 2.1, 0]} mass={200} /> */}
-              <CustomDiamond position={[0, 1.5, 2]} mass={20} />
+              <CustomDiamond position={[0, 0.5, 2]} mass={20} />
               <CustomBox
                 color="white"
                 args={[1, 1, 1]}
@@ -249,7 +249,7 @@ export default function GravityScene() {
                 mass={80}
               />
               <CustomSphere
-                position={[1, 1, 0]}
+                position={[1, 1, -1]}
                 color="red"
                 args={[1, 100, 100]}
               />
