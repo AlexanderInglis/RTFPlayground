@@ -17,9 +17,7 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { OrbitControls, Reflector } from "@react-three/drei";
-import Buddha from "./Scene";
 import Diamond from "./DiamondScene";
-import { useControls } from "leva";
 
 //CUSTOM MATERIALS
 
@@ -122,42 +120,6 @@ const CustomPlane = () => {
   );
 };
 
-// CUSTOM MODEL
-
-const CustomBuddha = ({ position, color, mass }) => {
-  const [ref] = useCompoundBody(() => ({
-    mass: 500,
-    position,
-    shapes: [
-      {
-        type: "Cylinder",
-        position: [-0.05, -1.35, -0.3],
-        rotation: [110, 0, 0],
-        args: [1.2, 1.9, 1.5, 10],
-      },
-      {
-        type: "Cylinder",
-        position: [-0.05, 0.9, -0.3],
-        rotation: [110, 0, 0],
-        args: [1.9, 1.1, 2, 9],
-      },
-    ],
-  }));
-
-  return (
-    <mesh
-      castShadow
-      receiveShadow
-      material={material}
-      position={position}
-      ref={ref}
-      scale={[0.2, 0.2, 0.2]}
-    >
-      <Buddha />
-    </mesh>
-  );
-};
-
 // CUSTOM DIAMOND
 const CustomDiamond = ({ position, color, mass }) => {
   const [ref] = useCompoundBody(() => ({
@@ -183,12 +145,10 @@ const CustomDiamond = ({ position, color, mass }) => {
     <mesh
       castShadow
       receiveShadow
-      // material={glassMaterial}
       position={position}
       ref={ref}
       scale={[0.05, 0.05, 0.05]}
     >
-      {/* <MeshPhysicalMaterial /> */}
       <Diamond />
     </mesh>
   );
@@ -228,7 +188,6 @@ export default function GravityScene() {
             <Physics gravity={[0, -9.81, 0]}>
               {/* <Debug scale={1.1} color="black"> */}
               <CustomPlane color="white" />
-              {/* <CustomBuddha position={[0, 2.1, 0]} mass={200} /> */}
               <CustomDiamond position={[0, 0.5, 2]} mass={20} />
               <CustomBox
                 color="white"
@@ -269,5 +228,3 @@ export default function GravityScene() {
     </>
   );
 }
-
-// export default GravityScene;
