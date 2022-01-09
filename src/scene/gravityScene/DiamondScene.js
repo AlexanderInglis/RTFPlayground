@@ -24,7 +24,7 @@ export default function Model({ ...props }) {
     envMapIntensity: 25,
     attenuationTint: "red",
     attenuationDistance: 1,
-    thickness: 10,
+    thickness: 40,
     reflectivity: 2,
     envMaps: "reflect",
     emissive: "#000000",
@@ -39,6 +39,8 @@ export default function Model({ ...props }) {
           <group rotation={[-Math.PI / 2, 0, 0]} scale={0.45}>
             <group position={[0, 0, 98.59]}>
               <mesh
+                castShadow
+                receiveShadow
                 geometry={nodes["Cylinder001_Material_#27_0"].geometry}
                 material={glassMaterial}
               />
