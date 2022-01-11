@@ -5,6 +5,16 @@ import "./CustomMaterial";
 import { useBlock } from "../blocks";
 import state from "../store";
 
+import {
+  EffectComposer,
+  Noise,
+  ChromaticAberration,
+  ScrollControls,
+  Scroll,
+  useScroll,
+} from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
+
 export default forwardRef(
   ({ color = "white", shift = 100, opacity = 1, args, map, ...props }, ref) => {
     const { viewportWidth, offsetFactor } = useBlock();
@@ -24,8 +34,14 @@ export default forwardRef(
       );
       last = top.current;
     });
+    const onScroll = (e) => (state.top.current = e.target.scrollLeft);
+    // const {}
     return (
       <mesh ref={ref} {...props}>
+        <EffectComposer>
+          <ChromaticAberration offset={[0.001, 0.001]} />
+          <Noise opacity={1} premultiply blendFunction={BlendFunction.ADD} />
+        </EffectComposer>
         <planeGeometry args={args} />
         <customMaterial
           ref={material}

@@ -188,7 +188,11 @@ export default function GravityScene() {
             <Physics gravity={[0, -9.81, 0]}>
               {/* <Debug scale={1.1} color="black"> */}
               <CustomPlane color="white" />
-              <CustomDiamond position={[0, 0.5, 2]} mass={20} />
+              <CustomDiamond
+                position={[0, 0.5, 0]}
+                rotation={[120]}
+                mass={20}
+              />
               <CustomBox
                 color="white"
                 args={[1, 1, 1]}
@@ -197,9 +201,9 @@ export default function GravityScene() {
               />
               <CustomBox
                 color="white"
-                args={[0.2, 0.2, 0.2]}
-                position={[20, 0.1, 3.5]}
-                mass={80}
+                args={[1, 1, 1]}
+                position={[-1.5, 1, 2]}
+                mass={100}
               />
               <CustomBox
                 color="white"
@@ -208,7 +212,7 @@ export default function GravityScene() {
                 mass={80}
               />
               <CustomSphere
-                position={[1, 1, -1]}
+                position={[3, 1, -2]}
                 color="red"
                 args={[1, 100, 100]}
               />
@@ -217,12 +221,12 @@ export default function GravityScene() {
           </group>
           <OrbitControls
             autoRotateSpeed={2.5}
-            maxDistance={10}
-            minDistance={8}
+            maxDistance={9}
+            minDistance={6}
             maxPolarAngle={1.1}
           />
         </Suspense>
-        <Stats />
+        {/* <Stats /> */}
       </Canvas>
       <Loader />
     </>

@@ -14,12 +14,16 @@ import {
   EffectComposer,
   Noise,
   ChromaticAberration,
+  ScrollControls,
+  Scroll,
+  useScroll,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import { Shadow, useTexture, Line, meshBounds } from "@react-three/drei";
 import Plane from "./components/Plane";
 import state from "./store";
 import { Block, useBlock } from "./blocks";
+import Effects from "./components/Effects";
 
 function HeadsUpDisplay({ children }) {
   const [scene] = useState(() => new THREE.Scene());
@@ -35,52 +39,6 @@ function HeadsUpDisplay({ children }) {
 
 //CUSTOM SHAPES
 
-function Rect({ scale, ...props }) {
-  return (
-    <group scale={scale}>
-      <Line
-        points={[
-          -0.5, 0.5, 0, 0.5, 0.5, 0, 0.5, -0.5, 0, -0.5, -0.5, 0, -0.5, 0.5, 0,
-        ]}
-        color="black"
-        linewidth={2}
-        position={[0, 0, 0]}
-      />
-      <mesh {...props} raycast={meshBounds}>
-        <planeGeometry />
-        <meshBasicMaterial transparent opacity={1} />
-      </mesh>
-    </group>
-  );
-}
-
-function Dot() {
-  const [hovered, set] = useState(false);
-  const { offset, sectionWidth } = useBlock();
-  useEffect(
-    () => void (document.body.style.cursor = hovered ? "pointer" : "auto"),
-    [hovered]
-  );
-  return (
-    <Rect
-      scale={0.15}
-      onPointerOver={() => set(true)}
-      onPointerOut={() => set(false)}
-      onClick={() =>
-        (state.ref.scrollLeft = offset * sectionWidth * state.zoom)
-      }
-    />
-  );
-}
-
-function Map() {
-  return new Array(6).fill().map((img, index) => (
-    <Block key={index} factor={1 / state.sections / 2} offset={index}>
-      <Dot />
-    </Block>
-  ));
-}
-
 function Image({ img, index }) {
   const ref = useRef();
   const { contentMaxWidth: w, viewportWidth, offsetFactor } = useBlock();
@@ -95,6 +53,11 @@ function Image({ img, index }) {
   });
   return (
     <group ref={ref}>
+      {/* <EffectComposer>
+        <ChromaticAberration offset={[offsetFactor / 9000, -w / 990]} />
+        <Noise opacity={1} premultiply blendFunction={BlendFunction.ADD} />
+      </EffectComposer> */}
+
       <Plane
         map={img}
         args={[1, 1, 32, 32]}
@@ -117,6 +80,8 @@ function Image({ img, index }) {
 
 function Content() {
   const images = useTexture(["/01.jpg", "/02.jpg", "/03.jpg"]);
+  const onScroll = (e) => (state.top.current = e.target.scrollLeft);
+
   return images.map((img, index) => (
     <Block key={index} factor={1} offset={index}>
       <Image key={index} index={index} img={img} />
@@ -129,6 +94,7 @@ function Content() {
 export default function ImageScene() {
   const scrollArea = useRef();
   const onScroll = (e) => (state.top.current = e.target.scrollLeft);
+
   useEffect(
     () => void onScroll({ target: (state.ref = scrollArea.current) }),
     []
@@ -141,23 +107,23 @@ export default function ImageScene() {
         dpr={window.devicePixelRatio}
       >
         <Suspense fallback={null}>
+          {/* <Effects> */}
           <color attach="background" args={["#010101"]} />
           {/* <fog attach="fog" args={["#96c0ff", 0, 40]} /> */}
-          <EffectComposer>
+          {/* <ambientLight intensity={0.1} /> */}
+          {/* <EffectComposer>
             <ChromaticAberration offset={[0.001, 0.001]} />
             <Noise opacity={1} premultiply blendFunction={BlendFunction.ADD} />
-          </EffectComposer>
-          <ambientLight intensity={0.1} />
+          </EffectComposer> */}
+
           <group>
             <Content />
-            {/* <HeadsUpDisplay>
-              <Map />
-            </HeadsUpDisplay> */}
           </group>
+          {/* </Effects> */}
         </Suspense>
         <Stats />
       </Canvas>
-      <div class="scrollArea" ref={scrollArea} onScroll={onScroll}>
+      <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
         <div style={{ height: "100vh", width: `${state.pages * 100}vw` }} />
       </div>
       <Loader />

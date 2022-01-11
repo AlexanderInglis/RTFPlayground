@@ -8,8 +8,8 @@ function App() {
   return (
     <>
       <Cursor />
-      {/* <GravityScene /> */}
-      <ImageScene />
+      <GravityScene />
+      {/* <ImageScene /> */}
     </>
   );
 }
