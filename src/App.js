@@ -7,9 +7,9 @@ import ImageScene from "./scene/imageScene";
 function App() {
   return (
     <>
-      <Cursor />
       <GravityScene />
       {/* <ImageScene /> */}
+      <Cursor />
     </>
   );
 }
