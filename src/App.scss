@@ -11,6 +11,10 @@
     height: 100%;
     margin: 0;
     padding: 0;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    overflow: auto;
   }
 }
 
@@ -86,4 +90,15 @@ body {
   height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollArea {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
