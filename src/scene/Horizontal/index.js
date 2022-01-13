@@ -69,8 +69,15 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
     //   delta
     // );
 
+    // //Chromatic Aberration on Scroll
+    // chrome.current.offset.x = THREE.MathUtils.damp(
+    //   group.current.position.z,
+    //   Math.max(0.0009, (data.delta * window.innerWidth) / 800),
+    //   200,
+    //   delta
+    // );
     //Chromatic Aberration on Scroll
-    chrome.current.offset.x = THREE.MathUtils.damp(
+    chrome.current.offset.width = THREE.MathUtils.damp(
       group.current.position.z,
       Math.max(0.0009, (data.delta * window.innerWidth) / 800),
       200,
