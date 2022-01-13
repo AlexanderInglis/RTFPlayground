@@ -6,7 +6,8 @@ import {
   ScrollControls,
   Scroll,
   useScroll,
-  MeshDistortMaterial,
+  Stats,
+  Loader,
 } from "@react-three/drei";
 import { useSnapshot } from "valtio";
 import { Minimap } from "./Minimap";
@@ -45,20 +46,20 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
       6,
       delta
     );
-    if (clicked !== null && index < clicked)
-      ref.current.position.x = damp(
-        ref.current.position.x,
-        position[0] - 2,
-        6,
-        delta
-      );
-    if (clicked !== null && index > clicked)
-      ref.current.position.x = damp(
-        ref.current.position.x,
-        position[0] + 2,
-        6,
-        delta
-      );
+    // if (clicked !== null && index < clicked)
+    //   ref.current.position.x = damp(
+    //     ref.current.position.x,
+    //     position[0] - 2,
+    //     6,
+    //     delta
+    //   );
+    // if (clicked !== null && index > clicked)
+    //   ref.current.position.x = damp(
+    //     ref.current.position.x,
+    //     position[0] + 2,
+    //     6,
+    //     delta
+    //   );
 
     //scaling on Scroll
     // group.current.position.z = THREE.MathUtils.damp(
@@ -71,16 +72,10 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
     //Chromatic Aberration on Scroll
     chrome.current.offset.x = THREE.MathUtils.damp(
       group.current.position.z,
-      Math.max(0.0001, data.delta * 15),
-      30,
+      Math.max(0.0009, (data.delta * window.innerWidth) / 800),
+      200,
       delta
     );
-    // chrome.current.offset.y = THREE.MathUtils.damp(
-    //   group.current.position.z,
-    //   Math.max(0, data.delta * 0.1),
-    //   300,
-    //   delta
-    // );
 
     if (clicked === null || clicked === index)
       ref.current.position.x = damp(
@@ -120,7 +115,7 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   );
 }
 
-function Items({ w = window.innerWidth / 200, gap = w / 1.5 }) {
+function Items({ w = window.innerWidth / 180, gap = w / 1.5 }) {
   const { urls } = useSnapshot(state);
   const { width } = useThree((state) => state.viewport);
   const xW = w + gap;
@@ -132,7 +127,7 @@ function Items({ w = window.innerWidth / 200, gap = w / 1.5 }) {
       offset={20}
       pages={(width - xW + urls.length * xW) / width}
     >
-      <Minimap />
+      <Minimap eff />
       <Scroll>
         {
           urls.map((url, i) => <Item key={i} index={i} position={[i * xW, 0, 0]} scale={[w, 4, 1]} url={url} />) /* prettier-ignore */
@@ -154,7 +149,9 @@ const HorizontalScroller = () => (
       <Suspense fallback={null}>
         <Items />
       </Suspense>
+      <Stats />
     </Canvas>
+    <Loader />
   </>
 );
 export default HorizontalScroller;
