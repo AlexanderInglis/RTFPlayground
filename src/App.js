@@ -10,8 +10,8 @@ function App() {
     <>
       {/* <GravityScene /> */}
       {/* <ImageScene /> */}
-      <HorizontalScroller />
       <Cursor />
+      <HorizontalScroller />
     </>
   );
 }
