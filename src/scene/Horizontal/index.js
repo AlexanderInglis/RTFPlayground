@@ -71,13 +71,13 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
     //Chromatic Aberration on Scroll
     chrome.current.offset.x = THREE.MathUtils.damp(
       group.current.position.z,
-      Math.max(0, data.delta * 0.000000000001),
-      200,
+      Math.max(0.0001, data.delta * group.current.position.z * 50),
+      50,
       delta
     );
     chrome.current.offset.y = THREE.MathUtils.damp(
       group.current.position.z,
-      Math.max(0, data.delta * 0.000000000001),
+      Math.max(0, data.delta * 0.1),
       300,
       delta
     );
@@ -103,8 +103,8 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   return (
     <group ref={group}>
       <EffectComposer>
-        <Noise opacity={0.05} />
-        <ChromaticAberration ref={chrome} offset={[0.0001, 0.001]} />
+        <Noise opacity={0.15} />
+        <ChromaticAberration ref={chrome} offset={[0, 0]} />
       </EffectComposer>
 
       <Image
@@ -120,7 +120,7 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   );
 }
 
-function Items({ w = 0.7, gap = 0.15 }) {
+function Items({ w = window.innerWidth / 150, gap = w }) {
   const { urls } = useSnapshot(state);
   const { width } = useThree((state) => state.viewport);
   const xW = w + gap;
@@ -129,7 +129,7 @@ function Items({ w = 0.7, gap = 0.15 }) {
     <ScrollControls
       horizontal
       damping={4}
-      offset={2}
+      offset={20}
       pages={(width - xW + urls.length * xW) / width}
     >
       <Minimap />
@@ -145,8 +145,9 @@ function Items({ w = 0.7, gap = 0.15 }) {
 const HorizontalScroller = () => (
   <>
     <Canvas
+      //   frameloop="demand"
       gl={{ antialias: false }}
-      dpr={[1, 1.5]}
+      dpr={window.devicePixelRatio}
       onPointerMissed={() => (state.clicked = null)}
     >
       <Suspense fallback={null}>
