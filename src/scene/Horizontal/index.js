@@ -156,9 +156,9 @@ const HorizontalScroller = () => (
       <Suspense fallback={null}>
         <Items />
       </Suspense>
-      <Stats />
+      {/* <Stats /> */}
     </Canvas>
-    {/* <Loader /> */}
+    <Loader />
   </>
 );
 export default HorizontalScroller;
