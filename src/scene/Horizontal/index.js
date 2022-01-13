@@ -61,26 +61,26 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
       );
 
     //scaling on Scroll
-    group.current.position.z = THREE.MathUtils.damp(
-      group.current.position.z,
-      Math.max(0, data.delta * 10),
-      4,
-      delta
-    );
+    // group.current.position.z = THREE.MathUtils.damp(
+    //   group.current.position.z,
+    //   Math.max(0, data.delta * 10),
+    //   4,
+    //   delta
+    // );
 
     //Chromatic Aberration on Scroll
     chrome.current.offset.x = THREE.MathUtils.damp(
       group.current.position.z,
-      Math.max(0.0001, data.delta * group.current.position.z * 50),
-      50,
+      Math.max(0.0001, (data.delta * window.innerWidth) / 200),
+      30,
       delta
     );
-    chrome.current.offset.y = THREE.MathUtils.damp(
-      group.current.position.z,
-      Math.max(0, data.delta * 0.1),
-      300,
-      delta
-    );
+    // chrome.current.offset.y = THREE.MathUtils.damp(
+    //   group.current.position.z,
+    //   Math.max(0, data.delta * 0.1),
+    //   300,
+    //   delta
+    // );
 
     if (clicked === null || clicked === index)
       ref.current.position.x = damp(
@@ -103,7 +103,7 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   return (
     <group ref={group}>
       <EffectComposer>
-        <Noise opacity={0.15} />
+        <Noise opacity={0.05} />
         <ChromaticAberration ref={chrome} offset={[0, 0]} />
       </EffectComposer>
 
@@ -120,7 +120,7 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   );
 }
 
-function Items({ w = window.innerWidth / 150, gap = w }) {
+function Items({ w = window.innerWidth / 200, gap = w / 1.5 }) {
   const { urls } = useSnapshot(state);
   const { width } = useThree((state) => state.viewport);
   const xW = w + gap;
@@ -150,6 +150,7 @@ const HorizontalScroller = () => (
       dpr={window.devicePixelRatio}
       onPointerMissed={() => (state.clicked = null)}
     >
+      <color attach="background" args={["#010101"]} />
       <Suspense fallback={null}>
         <Items />
       </Suspense>
