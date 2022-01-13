@@ -128,7 +128,7 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   );
 }
 
-function Items({ w = window.innerWidth / 180, gap = w / 1.5 }) {
+function Items({ w = window.innerWidth / 180, gap = w * 1.2 }) {
   const { urls } = useSnapshot(state);
   const { width } = useThree((state) => state.viewport);
   const xW = w + gap;
