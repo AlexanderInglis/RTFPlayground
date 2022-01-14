@@ -77,12 +77,12 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
     //   delta
     // );
     //Chromatic Aberration on Scroll
-    chrome.current.offset.width = THREE.MathUtils.damp(
-      group.current.position.z,
-      Math.max(0.0009, (data.delta * window.innerWidth) / 800),
-      200,
-      delta
-    );
+    // chrome.current.offset.width = THREE.MathUtils.damp(
+    //   group.current.position.z,
+    //   Math.max(0.0009, (data.delta * window.innerWidth) / 800),
+    //   200,
+    //   delta
+    // );
     // chrome.current.offset.y = THREE.MathUtils.damp(
     //   group.current.position.z,
     //   Math.max(0.0009, (data.delta * window.innerWidth) / 3000),
@@ -110,10 +110,10 @@ function Item({ index, position, scale, c = new THREE.Color(), ...props }) {
   });
   return (
     <group ref={group}>
-      <EffectComposer>
+      {/* <EffectComposer>
         <Noise opacity={0.05} />
         <ChromaticAberration ref={chrome} offset={[0, 0]} />
-      </EffectComposer>
+      </EffectComposer> */}
 
       <Image
         ref={ref}

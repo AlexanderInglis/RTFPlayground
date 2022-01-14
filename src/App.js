@@ -5,6 +5,7 @@ import Cursor from "./assets/Cursor";
 import ImageScene from "./scene/imageScene";
 import HorizontalScroller from "./scene/Horizontal/index";
 import { Minimap } from "./scene/Horizontal/Minimap";
+import HorizontalScrollerTwo from "./scene//HorizontalTwo/index";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       {/* <GravityScene /> */}
       {/* <ImageScene /> */}
       <Cursor />
-      <HorizontalScroller />
+      {/* <HorizontalScroller /> */}
+      <HorizontalScrollerTwo />
     </>
   );
 }
