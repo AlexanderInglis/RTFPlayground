@@ -66,7 +66,7 @@ function Pages() {
     <>
       <group ref={pages}>
         <EffectComposer>
-          <Noise opacity={0.02} />
+          <Noise opacity={0.04} />
           <ChromaticAberration ref={chrome} offset={[0, 0]} />
         </EffectComposer>
         <Page
@@ -163,7 +163,7 @@ export default function HorizontalScrollerTwo() {
           <ScrollControls
             infinite
             horizontal
-            damping={4}
+            damping={5.4}
             pages={8}
             distance={1}
           >
