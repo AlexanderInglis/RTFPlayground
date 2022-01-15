@@ -175,7 +175,7 @@ export default function HorizontalScrollerTwo() {
           <Preload />
         </Suspense>
       </Canvas>
-      {/* <Stats /> */}
+      <Stats />
       <Loader />
     </>
   );
