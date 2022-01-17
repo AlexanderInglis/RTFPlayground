@@ -23,8 +23,8 @@ const medSizing = [1080 / 12, 1350 / 12, 100, 100];
 const smlSizing = [1080 / 20, 1920 / 20, 100, 100];
 
 function Page({ urls, ...props }) {
-  const mediumScreen = 915;
-  const smallScreen = 500;
+  const mediumScreen = 1271;
+  const smallScreen = 713;
   const screenSize = window.innerWidth;
   console.log(screenSize);
   if (screenSize > mediumScreen) {
@@ -175,7 +175,7 @@ export default function HorizontalScrollerTwo() {
           <Preload />
         </Suspense>
       </Canvas>
-      <Stats />
+      {/* <Stats /> */}
       <Loader />
     </>
   );
